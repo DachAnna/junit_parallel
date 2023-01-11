@@ -9,8 +9,8 @@ public class SimpleCallBack implements BeforeEachCallback, AfterEachCallback {
     private String value;
 
     @Override
-    public void beforeEach (ExtensionContext context) throws Exception {
-        if (context.getDisplayName().contains("JDI")){
+    public void beforeEach(ExtensionContext context) throws Exception {
+        if (context.getDisplayName().contains("JDI")) {
             value = "JDI";
         }
     }

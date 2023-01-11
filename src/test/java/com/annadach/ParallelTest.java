@@ -15,32 +15,28 @@ import static com.codeborne.selenide.Selenide.*;
 @ExtendWith(SimpleCallBack.class)
 public class ParallelTest {
 
-    @ExtendWith(SimpleCallBack.class)
-    public class ParallelTest {
+    private YandexMainPage page = new YandexMainPage();
 
-        private YandexMainPage page = new YandexMainPage();
+    @ValueSource(strings = {
+            "simbirsoft",
+            "selenide",
+            "qameta",
+            "allure"
+    })
+    @ParameterizedTest(name = "{0} test")
+    void yandexSearchTest(String searchQuery, TestInfo testInfo) {
+        Configuration.startMaximized = true;
+        open(URL);
+        page.doSearch(searchQuery).checkResults(searchQuery);
+        System.out.println("Config for test: " + testInfo.getDisplayName() + " " + Configuration.startMaximized);
+    }
 
-        @ValueSource(strings = {
-                "simbirsoft",
-                "selenide",
-                "qameta",
-                "allure"
-        })
-        @ParameterizedTest(name = "{0} test")
-        void yandexSearchTest(String searchQuery, TestInfo testInfo) {
-            Configuration.startMaximized = true;
-            open(URL);
-            page.doSearch(searchQuery).checkResults(searchQuery);
-            System.out.println("Config for test: " + testInfo.getDisplayName() + " " + Configuration.startMaximized);
-        }
-
-        @DisplayName("JDI test")
-        @Test
-        void minimizedWindowTest(TestInfo testInfo) {
-            Configuration.startMaximized = false;
-            open(URL);
-            page.doSearch("JDI").checkResults("JDI");
-            System.out.println("Config for test: " + testInfo.getDisplayName() + " " + Configuration.startMaximized);
-        }
+    @DisplayName("JDI test")
+    @Test
+    void minimizedWindowTest(TestInfo testInfo) {
+        Configuration.startMaximized = false;
+        open(URL);
+        page.doSearch("JDI").checkResults("JDI");
+        System.out.println("Config for test: " + testInfo.getDisplayName() + " " + Configuration.startMaximized);
     }
 }
