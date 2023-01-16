@@ -17,6 +17,7 @@ public class SimpleCallBack implements BeforeEachCallback, AfterEachCallback {
 
     @Override
     public void afterEach(ExtensionContext context) throws Exception {
-        System.out.println("This is a string: " + value);
+        System.out.println("This is a strings: " + value);
     }
+
 }
